@@ -4,6 +4,8 @@ A MixPlay game where users swat flies to get the highest score
 ## What is this?
 A fun little game where all users connected to a channel can compete to swat as mant flies as possible before time runs out. The person with the most flies swatted is then shown to everyone, then the game repeats again.
 
+[![Example](https://github.com/SaviorXTanren/MixerFlySwatter/blob/master/Example.png)](https://github.com/SaviorXTanren/MixerFlySwatter/blob/master/Example.png)
+
 ## How to use
 - Clone the source code & open up the FlySwatterServer solution
 - Head to your channel page in your browser of choice
