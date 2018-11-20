@@ -1,0 +1,26 @@
+{
+  "coverUrl": null,
+  "createdAt": "2018-11-19T07:30:01.000Z",
+  "deletedAt": null,
+  "description": null,
+  "hasPublishedVersions": false,
+  "id": 295410,
+  "installation": null,
+  "isShared": false,
+  "name": "Fly Swatter",
+  "ownerId": 7207866,
+  "typeId": 130909,
+  "updatedAt": "2018-11-19T07:30:01.000Z",
+  "versions": [
+    {
+      "changelog": "Initial release",
+      "createdAt": "2018-11-19T07:30:01.000Z",
+      "id": 301323,
+      "installation": null,
+      "state": "draft",
+      "updatedAt": "2018-11-19T07:30:06.000Z",
+      "version": "0.1.0",
+      "versionOrder": 256
+    }
+  ]
+}

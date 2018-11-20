@@ -1,0 +1,48 @@
+[
+  {
+    "content": [
+      {
+        "activeItemIndex": 0,
+        "content": [
+          {
+            "componentName": "ControlSchema",
+            "isClosable": true,
+            "reorderEnabled": true,
+            "title": "Control Schema",
+            "type": "component",
+            "width": 0.25
+          }
+        ],
+        "header": {},
+        "isClosable": true,
+        "reorderEnabled": true,
+        "title": "",
+        "type": "stack",
+        "width": 24.32288900690388
+      },
+      {
+        "activeItemIndex": 0,
+        "content": [
+          {
+            "componentName": "Controls",
+            "isClosable": true,
+            "reorderEnabled": true,
+            "title": "Controls",
+            "type": "component"
+          }
+        ],
+        "header": {},
+        "height": 100,
+        "isClosable": true,
+        "reorderEnabled": true,
+        "title": "",
+        "type": "stack",
+        "width": 75.67711099309612
+      }
+    ],
+    "isClosable": true,
+    "reorderEnabled": true,
+    "title": "",
+    "type": "row"
+  }
+]

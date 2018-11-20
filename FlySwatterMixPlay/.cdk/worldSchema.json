@@ -1,0 +1,39 @@
+[
+  {
+    "name": "$working",
+    "world": {
+      "scenes": [
+        {
+          "controls": [
+            {
+              "controlID": "gameStart",
+              "cost": 0,
+              "disabled": false,
+              "kind": "button",
+              "meta": {},
+              "text": "gameStart"
+            },
+            {
+              "controlID": "gameEnd",
+              "cost": 0,
+              "disabled": false,
+              "kind": "button",
+              "meta": {},
+              "text": "gameEnd"
+            },
+            {
+              "controlID": "results",
+              "cost": 0,
+              "disabled": false,
+              "kind": "button",
+              "meta": {},
+              "text": "results"
+            }
+          ],
+          "sceneID": "default"
+        }
+      ]
+    },
+    "savedAt": 1542697529945
+  }
+]
