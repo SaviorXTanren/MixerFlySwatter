@@ -14,6 +14,22 @@
               "text": "gameStart"
             },
             {
+              "controlID": "timeLeft",
+              "cost": 0,
+              "disabled": false,
+              "kind": "button",
+              "meta": {},
+              "text": "timeLeft"
+            },
+            {
+              "controlID": "flyHit",
+              "cost": 0,
+              "disabled": false,
+              "kind": "button",
+              "meta": {},
+              "text": "flyHit"
+            },
+            {
               "controlID": "gameEnd",
               "cost": 0,
               "disabled": false,
@@ -34,6 +50,6 @@
         }
       ]
     },
-    "savedAt": 1542697529945
+    "savedAt": 1549868236538
   }
 ]

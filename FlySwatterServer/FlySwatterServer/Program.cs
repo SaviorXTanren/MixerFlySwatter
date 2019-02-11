@@ -74,6 +74,9 @@ namespace FlySwatterServer
                                     InteractiveConnectedSceneModel scene = scenes.scenes.First();
 
                                     InteractiveConnectedButtonControlModel gameStartButton = scene.buttons.First(b => b.controlID.Equals("gameStart"));
+                                    InteractiveConnectedButtonControlModel timeLeftButton = scene.buttons.First(b => b.controlID.Equals("timeLeft"));
+                                    InteractiveConnectedButtonControlModel flyHitButton = scene.buttons.First(b => b.controlID.Equals("flyHit"));
+                                    InteractiveConnectedButtonControlModel gameEndButton = scene.buttons.First(b => b.controlID.Equals("gameEnd"));
                                     InteractiveConnectedButtonControlModel resultsButton = scene.buttons.First(b => b.controlID.Equals("results"));
 
                                     InteractiveParticipantCollectionModel participantCollection = await Program.interactiveClient.GetAllParticipants(DateTimeOffset.Now.Subtract(TimeSpan.FromMinutes(5)));
@@ -93,9 +96,18 @@ namespace FlySwatterServer
 
                                             userTotals.Clear();
 
+                                            gameStartButton.meta["timeLeft"] = 30;
                                             await Program.interactiveClient.UpdateControls(scene, new List<InteractiveControlModel>() { gameStartButton });
 
-                                            await Task.Delay(33000);
+                                            for (int i = 30; i >= 0; i--)
+                                            {
+                                                timeLeftButton.meta["timeLeft"] = i;
+                                                await Program.interactiveClient.UpdateControls(scene, new List<InteractiveControlModel>() { timeLeftButton });
+
+                                                await Task.Delay(1000);
+                                            }
+
+                                            await Task.Delay(2000);
 
                                             System.Console.WriteLine("Game completed, selecting winner...");
 
@@ -106,6 +118,7 @@ namespace FlySwatterServer
                                                 {
                                                     resultsButton.meta["winner"] = JObject.FromObject(winner);
                                                     await Program.interactiveClient.UpdateControls(scene, new List<InteractiveControlModel>() { resultsButton });
+                                                    break;
                                                 }
                                             }
 

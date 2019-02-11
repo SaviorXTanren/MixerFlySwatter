@@ -12,6 +12,8 @@ var winnerText;
 
 var allFliesMap = new Map();
 
+var timeLeft;
+
 var mainWidth = 0;
 var mainHeight = 0;
 
@@ -20,10 +22,6 @@ var flyHeight = 50;
 
 var totalFliesSpawned = 0;
 var totalFliesSwatted = 0;
-
-var timeLeft = 0;
-
-var gameLoopTimeIncrement = 500;
 
 var xMouseCoordinate = 0;
 var yMouseCoordinate = 0;
@@ -54,7 +52,7 @@ var rAF = window.mozRequestAnimationFrame ||
 
 // Game logic methods
 
-function gameStart() {
+function gameStart(totalTime) {
 	totalFliesSpawned = 0;
 	totalFliesSwatted = 0;
 	
@@ -64,36 +62,19 @@ function gameStart() {
 	clearFlies();
 	
 	scoreBoxText.innerHTML = "Total: " + totalFliesSwatted;
-	timeLeftText.innerHTML = "Time: " + Math.round(timeLeft / 1000);
-	
-	timeLeft = 30 * 1000;
+	timeLeftText.innerHTML = "Time: " + totalTime;
 	
 	gameLoop();
 }
 
 function gameLoop() {
-	setTimeout(function () {
-		addFly();
-		
-		timeLeft = timeLeft - gameLoopTimeIncrement;
-		
-		timeLeftText.innerHTML = "Time: " + Math.round(timeLeft / 1000);
-		
+	setTimeout(function () {		
 		if (timeLeft > 0) {
+			addFly();
+			
 			gameLoop();
 		}
-		else {
-			clearFlies();
-			
-			mixer.socket.call('giveInput', {
-				controlID: 'gameEnd',
-				event: 'click',
-				meta: {
-					total: totalFliesSwatted,
-				}
-			});
-		}
-	}, gameLoopTimeIncrement);
+	}, 500);
 }
 
 function clearFlies() {
@@ -206,6 +187,14 @@ function allFliesDivClicked(x, y) {
 			totalFliesSwatted++;
 			
 			scoreBoxText.innerHTML = "Total: " + totalFliesSwatted;
+			
+			mixer.socket.call('giveInput', {
+				controlID: 'flyHit',
+				event: 'mousedown',
+				meta: {
+					total: totalFliesSwatted,
+				}
+			});
 
 			return;
 		}
@@ -323,10 +312,32 @@ function handleControlUpdate(update) {
     if (update.controls.length > 0) {
         var control = update.controls[0];
 		
-		if (control.controlID === 'gameStart') {
+		if (control.controlID === 'gameStart' && control.meta.timeLeft != null) {
 			
-			gameStart();
+			gameStart(control.meta.timeLeft);
 			
+		}
+		else if (control.controlID === 'timeLeft' && control.meta.timeLeft != null) {
+			timeLeft = control.meta.timeLeft;
+			
+			if (timeLeft > 0) {
+				timeLeftText.innerHTML = "Time: " + timeLeft;
+			}
+			else {
+				timeLeftText.innerHTML = "Time: 0";
+				
+				clearFlies();
+				
+				if (totalFliesSwatted > 0) {
+					mixer.socket.call('giveInput', {
+						controlID: 'gameEnd',
+						event: 'mousedown',
+						meta: {
+							total: totalFliesSwatted,
+						}
+					});	
+				}
+			}
 		}
 		else if (control.controlID === 'results' && control.meta.winner != null) {
 			
@@ -335,7 +346,6 @@ function handleControlUpdate(update) {
 			winnerImage.src = "https://mixer.com/api/v1/users/" + control.meta.winner.userID + "/avatar"
 			winnerText.innerHTML = control.meta.winner.username;
 			winnerDiv.style.visibility = 'visible';
-			
 		}
     }
 }
