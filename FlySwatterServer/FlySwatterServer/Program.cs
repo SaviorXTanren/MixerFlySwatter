@@ -112,7 +112,7 @@ namespace FlySwatterServer
                                             System.Console.WriteLine("Game completed, selecting winner...");
 
                                             InteractiveParticipantModel winner = null;
-                                            foreach (var kvp in userTotals.OrderBy(kvp => kvp.Value))
+                                            foreach (var kvp in userTotals.OrderByDescending(kvp => kvp.Value))
                                             {
                                                 if (Program.participants.TryGetValue(kvp.Key, out winner))
                                                 {
